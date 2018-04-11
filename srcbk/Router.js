@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { Text } from 'react-native';
 import { Scene, Router, Stack, renderRightButton } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { showMenu, signUpRoute, tabPress } from './actions';
@@ -62,11 +62,11 @@ class RouterComponent extends Component {
           </Scene>
           <Scene navigationBarStyle={{'backgroundColor':'#fff'}} sceneStyle={styles.scenes} key="signup" component={SignupForm} title="Sign Up" backTitle="" />
           <Scene navigationBarStyle={{'backgroundColor':'#fff'}} sceneStyle={styles.scenes} key="profile" component={ProfileForm} title="Profile" backTitle="" />
-          <Scene navigationBarStyle={{'backgroundColor':'#fff'}}  key="chatRoom" component={ChatRoom} title={this.props.contactEmail} backTitle=" " onBack={ ()=>Actions.reset('tabbar')} />
+          <Scene navigationBarStyle={{'backgroundColor':'#fff'}} key="chatRoom"  title={this.props.contactEmail} component={ChatRoom} backTitle="" />
 
-          <Scene navigationBarStyle={{'backgroundColor':'#fff'}} sceneStyle={styles.scenes} key="addContact" component={AddContact} title="AddContact" backTitle=""  />
+          <Scene navigationBarStyle={{'backgroundColor':'#fff'}} sceneStyle={styles.scenes} key="addContact" component={AddContact} title="AddContact" backTitle="" />
           {/*=======TABS=======*/}
-          <Scene key="tabbar" tabs={true} hideNavBar tabBarPosition={'bottom'} tabBarStyle={{ backgroundColor: '#fff' }} showLabel={true} showIcon={true} activeTintColor='#7FC7AF'>
+          <Scene key="tabbar" tabs={true} hideNavBar tabBarPosition={'bottom'} tabBarStyle={{ backgroundColor: '#fff' }} showLabel={false} >
               <Scene key="chatMain"
                 icon={TabIcon}
                 iconName="commenting"
@@ -76,17 +76,13 @@ class RouterComponent extends Component {
                 rightTitle="right"
                 backTitle=""
                 renderRightButton={()=>
-                  <TouchableOpacity onPress={()=>{ this.props.showMenu() }}>
-                  <View style={{width:40, alignItems:'center', flex:1, justifyContent:'center', flexDirection:'row'}}>
                   <Icon
                     name="ellipsis-v"
                     size={20}
                     color="#9D9D93"
-
-
+                    style={{paddingRight:25}}
+                    onPress={()=>{ this.props.showMenu() }}
                   />
-                  </View>
-                  </TouchableOpacity>
                 }
               />
 
@@ -104,12 +100,10 @@ class RouterComponent extends Component {
 }
 
 const TabIcon = ({ focused, iconName }) => {
-  // render(){
-    return (
-      // <Text style={{color:focused ? 'blue':'grey'}}>{title}</Text>
-      <Icon name={iconName} size={25} color="#000"  style={{width:30, height:25, color:focused ? '#7FC7AF':'grey', opacity:focused ?1:0.8}} />
-    );
-  // }
+  return (
+    // <Text style={{color:focused ? 'blue':'grey'}}>{title}</Text>
+    <Icon name={iconName} size={25} color="#000"  style={{color:focused ? '#7FC7AF':'grey', opacity:focused ?1:0.8}} />
+  );
 };
 
 const styles = {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { SafeAreaView, View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import { CardSection, Card, Button, Input } from '../components/common';
 import ChatMessage from '../components/common/ChatMessage';
 import { connect } from 'react-redux';
@@ -71,22 +71,18 @@ class ChatMain extends Component {
 
     if(this.props.menuPress){
       return (
-        <SafeAreaView forceInset={{ top: 'always' }}>
           <View>
             {menu}
             {/*mainContent*/}
             {flatListContent}
           </View>
-        </SafeAreaView>
       );
     }
       return (
-        <SafeAreaView forceInset={{ top: 'always' }}>
-          <View>
-            {/*mainContent*/}
-            {flatListContent}
-          </View>
-        </SafeAreaView>
+        <View>
+          {/*mainContent*/}
+          {flatListContent}
+        </View>
       );
 
   }

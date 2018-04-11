@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { SafeAreaView, KeyboardAvoidingView, Platform, View, FlatList, SectionList, Text, TouchableOpacity, TextInput, Keyboard, PixelRatio } from 'react-native';
+// import { SafeAreaView } from 'react-navigation';
 import { Spinner, CardSection, Card, Button, Input } from '../components/common';
 import ChatContent from '../components/common/ChatContent';
 import { connect } from 'react-redux';
@@ -14,7 +15,6 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import firebase from 'firebase';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import sectionListGetItemLayout from 'react-native-section-list-get-item-layout';
-import { isIphoneX } from 'react-native-iphone-x-helper';
 
 
 class ChatRoom extends Component {
@@ -60,12 +60,11 @@ class ChatRoom extends Component {
   }
 
   componentWillMount(){
-    // this.props.leaveRoom();
-    // this.setState({mounted:false})
+    this.props.leaveRoom();
+    this.setState({mounted:false})
     // console.log('will mount');
     // console.log(this.state.mounted);
     const { contact, loadCount, contactEmail, messages } = this.props;
-    // console.log(this.props);
     this.props.chatMessageFetch(contact, loadCount, contactEmail);
     // setTimeout(() =>
     // {
@@ -116,39 +115,32 @@ class ChatRoom extends Component {
   }
 
   onLoadOlderMessage(){
-    // if (!this.onEndReachedCalledDuringMomentum) {
-    //   this.onEndReachedCalledDuringMomentum = true;
-    //     const { roomId, loadCount } = this.props;
-    //     // console.log('roomId : ' + roomId);
-    //     setTimeout(() =>
-    //     {
-    //       //this.scrollToBottom()
-    //       // debugger;
-    //       this.props.loadMessage(roomId, loadCount)
-    //     }
-    //     , 800);
-    // }
-
-  }
-
-  keyboardOffsetScroll(){
-    if(isIphoneX()){
-      return 15;
+    if (!this.onEndReachedCalledDuringMomentum) {
+      this.onEndReachedCalledDuringMomentum = true;
+        const { roomId, loadCount } = this.props;
+        // console.log('roomId : ' + roomId);
+        setTimeout(() =>
+        {
+          //this.scrollToBottom()
+          // debugger;
+          this.props.loadMessage(roomId, loadCount)
+        }
+        , 800);
     }
-      return 0;
+
   }
 
   keyboardWillShow = (event) => {
-    // if(Platform.OS === 'android'){
-    //   this.setState({androidKeyboardUp: 1.5});
-    // }
-    // setTimeout(() =>
-    // {
-    //   if(this.messageList){
-    //     this.scrollToBottom()
-    //   }
-    // }
-    // , 500);
+    if(Platform.OS === 'android'){
+      this.setState({androidKeyboardUp: 1.5});
+    }
+    setTimeout(() =>
+    {
+      if(this.messageList){
+        this.scrollToBottom()
+      }
+    }
+    , 500);
   };
 
   keyboardWillHide = (event) => {
@@ -172,9 +164,7 @@ class ChatRoom extends Component {
 
   renderRow(data){
     return (
-      <SafeAreaView>
       <ChatContent chatInfo={data.item}/>
-      </SafeAreaView>
     )
   }
 
@@ -280,15 +270,12 @@ class ChatRoom extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{flex:1}}>
-      <View style={{ flex: 1 }}>
         <KeyboardAwareScrollView
-          // keyboardShouldPersistTaps='always'
-          // enableAutomaticScroll={true}
-          // bounces={false}
-          // behavior="padding"
+          keyboardShouldPersistTaps='always'
+          enableAutomaticScroll={true}
+          bounces={false}
+          behavior="padding"
           contentContainerStyle={{ flex:1, bottom:7 }}
-          extraScrollHeight={this.keyboardOffsetScroll()}
           // enableResetScrollToCoords={true}
           // enableOnAndroid={true}
           // keyboardVerticalOffset={70}
@@ -296,8 +283,7 @@ class ChatRoom extends Component {
           // resetScrollToCoords={{ x: 0, y: 0 }}
           // enableResetScrollToCoords={true}
         >
-
-          <List containerStyle={{ flex:Platform.OS === 'ios' ? 8 : this.state.androidKeyboardUp, borderTopWidth: 0, borderBottomWidth: 0, paddingBottom:10 }}>
+          <List containerStyle={{ flex:Platform.OS === 'ios' ? 8 : this.state.androidKeyboardUp, borderTopWidth: 0, borderBottomWidth: 0 }}>
               <SectionList
                   // bounces={false}
                   inverted={true}
@@ -314,6 +300,7 @@ class ChatRoom extends Component {
                   onEndReached={this.onLoadOlderMessage.bind(this)}
                   onEndReachedThreshold={0.5}
                   onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+
               />
           </List>
 
@@ -344,8 +331,6 @@ class ChatRoom extends Component {
           </View>
 
         </KeyboardAwareScrollView>
-        </View>
-      </SafeAreaView>
     )
   }
 
@@ -372,10 +357,8 @@ const styles = {
       alignItems:'center',
       justifyContent:'center',
       paddingHorizontal:5,
-      // paddingVertical:5,
-      marginBottom:1
-    },
-
+      paddingVertical:5
+    }
 }
 
 const mapStateToProps = ({ chatMessages }) => {

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Image, TouchableOpacity, View, Text } from 'react-native';
+import { Image, TouchableOpacity, View, Text } from 'react-native';
 import { Card, CardSection } from '../common';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
-// import ImageView from 'react-native-image-view';
-import ImageView from '../common/ImageView';
+import ImageView from 'react-native-image-view';
 import FastImage from 'react-native-fast-image';
 import RNFetchBlob from 'react-native-fetch-blob';
-import { isIphoneX } from 'react-native-iphone-x-helper';
 
 
 class ChatContent extends Component{
@@ -51,32 +49,30 @@ class ChatContent extends Component{
 
     if(messageType === 1){
       return (
-        <SafeAreaView>
-          <View>
-            <TouchableOpacity onPress={ this.onImageClick.bind(this) }>
-            <FastImage
-                style={{width: 200, height: 200}}
-                source={{
-                  uri: this.state.imagePath,
-                  priority: FastImage.priority.fast,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-                onError={()=>{
-                  this.setState({ imagePath: downloadURL})
-                }}
-            />
+        <View>
+          <TouchableOpacity onPress={ this.onImageClick.bind(this) }>
+          <FastImage
+              style={{width: 200, height: 200}}
+              source={{
+                uri: this.state.imagePath,
+                priority: FastImage.priority.fast,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+              onError={()=>{
+                this.setState({ imagePath: downloadURL})
+              }}
+          />
 
-            </TouchableOpacity>
-            <ImageView
-              imageWidth={1000}
-              imageHeight={800}
-              source={{uri: this.state.imagePath}}
-              isVisible={this.state.isShowImageView}
-              animationType={'scale'}
-              onClose={this.onImageClose.bind(this)}
-            />
-          </View>
-        </SafeAreaView>
+          </TouchableOpacity>
+          <ImageView
+            imageWidth={1000}
+            imageHeight={800}
+            source={{uri: this.state.imagePath}}
+            isVisible={this.state.isShowImageView}
+            animationType={'scale'}
+            onClose={this.onImageClose.bind(this)}
+          />
+        </View>
       )
     }else{
       return (<Text style={{fontSize:15}}>{content}</Text>)

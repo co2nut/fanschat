@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, KeyboardAvoidingView, View, Text, TouchableOpacity, Image, ImageBackground, StatusBar } from 'react-native';
+import { KeyboardAvoidingView, View, Text, TouchableOpacity, Image, ImageBackground, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser, signUpRoute, switchAccRoute, checkLogin } from '../actions';
 import { NavRight, Card, CardSection, Input, Button, Spinner } from './common';
@@ -52,9 +52,10 @@ class LoginForm extends Component{
       );
     }
 
-    renderMain(){
-      let main =<SafeAreaView forceInset={{ top: 'always' }}>
-      <KeyboardAvoidingView>
+    renderPage(){}
+
+    render() {
+      let main =<KeyboardAvoidingView>
           <View style={{}}>
             <Image
               style={{alignSelf: 'center', width: 180, height: 130, marginTop:30}}
@@ -93,8 +94,7 @@ class LoginForm extends Component{
               {this.renderButton()}
             </CardSection>
           </View>
-        </KeyboardAvoidingView>
-        </SafeAreaView>;
+        </KeyboardAvoidingView>;
 
 
       let logo = <View>
@@ -105,29 +105,6 @@ class LoginForm extends Component{
       </View>
 
       const resizeMode = 'center';
-
-      if(this.props.loading){
-        return  <View style={{
-                    flex: 1,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                  >
-                    <Image
-                      style={{alignSelf: 'center', width: 180, height: 130, marginBottom:100}}
-                      source={require('../images/loginLogo.gif')}
-                    />
-                </View>;
-      }
-      return <View style={{paddingHorizontal:20}}>{main}</View>;
-
-    }
-
-    //renderPage(){}
-
-    render() {
-
 
       {/*}<ImageBackground
       style={{
@@ -142,7 +119,10 @@ class LoginForm extends Component{
 
     </ImageBackground>*/}
       return (
-          this.renderMain()
+
+        <View style={{paddingHorizontal:20}}>
+          {main}
+        </View>
       );
 
     }

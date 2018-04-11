@@ -56,7 +56,7 @@ export const loadMessage = (roomKey, loadCount) => {
 }
 
 export const chatMessageFetch = (contactId, loadCount, contactEmail) => {
-  console.log('from fetch', contactId, loadCount, contactEmail);
+  // console.log('from fetch');
   const db = firebase.database();
   const { currentUser } = firebase.auth();
 
@@ -87,7 +87,7 @@ export const chatMessageFetch = (contactId, loadCount, contactEmail) => {
                     // console.log(chatMessages);
                   }
                     dispatch({ type:CHATMESSAGE_FETCH_SUCCESS, roomKey, chatMessages, loadCount:1, contactEmail, loading:true });
-                    // resolve();
+                    resolve();
                 });
               }
             })

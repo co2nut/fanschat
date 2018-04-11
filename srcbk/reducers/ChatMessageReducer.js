@@ -46,10 +46,7 @@ export default(state = INITIAL_STATE, action) => {
     case CHATMESSAGE_LEAVE_ROOM:
       return {
         ...state,
-        message : null,
-        loadCount : 1,
-        contactEmail : '',
-        contactId : ''
+        message : null
       };
     default:
       return state;
