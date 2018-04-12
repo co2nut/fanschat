@@ -8,7 +8,8 @@ import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
 import firebase from 'firebase';
-import ImageView from 'react-native-image-view';
+//import ImageView from 'react-native-image-view';
+import ImageView from './common/ImageView';
 import FastImage from 'react-native-fast-image';
 import { Avatar } from 'react-native-elements';
 

@@ -283,10 +283,10 @@ class ChatRoom extends Component {
       <SafeAreaView style={{flex:1}}>
       <View style={{ flex: 1 }}>
         <KeyboardAwareScrollView
-          // keyboardShouldPersistTaps='always'
-          // enableAutomaticScroll={true}
-          // bounces={false}
-          // behavior="padding"
+          keyboardShouldPersistTaps='always'
+          enableAutomaticScroll={true}
+          bounces={false}
+          behavior="padding"
           contentContainerStyle={{ flex:1, bottom:7 }}
           extraScrollHeight={this.keyboardOffsetScroll()}
           // enableResetScrollToCoords={true}
